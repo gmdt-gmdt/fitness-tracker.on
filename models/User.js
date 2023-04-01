@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const UserSchema = new Schema({
   username: {
@@ -19,21 +19,25 @@ const UserSchema = new Schema({
     unique: true,
     match: [/.+@.+\..+/],
   },
-  cardio: [{
-    type: Schema.Types.ObjectId,
-    ref: "Cardio"
-  }],
-  resistance: [{
-    type: Schema.Types.ObjectId,
-    ref: "Resistance"
-  }]
+  cardio: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Cardio",
+    },
+  ],
+  resistance: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Resistance",
+    },
+  ],
 });
 
 // hash user password
 UserSchema.pre("save", async function (next) {
   if (this.isNew || this.isModified("password")) {
     const saltRounds = 10;
-    this.password = await bcrypt.hash(this.password, saltRounds);
+    this.password = bcrypt.hashSync(this.password, saltRounds);
   }
 
   next();
