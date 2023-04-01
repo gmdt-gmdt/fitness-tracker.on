@@ -11,11 +11,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Serve up static assets
-
-app.use(express.static(path.join(__dirname, "public")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/index.html"));
+app.use(express.static("public"));
+//index.js
+app.get("/", (req, res) => {
+  res.sendFile("index.html", { root: path.join(__dirname, "public") });
 });
 
 app.use(routes);
