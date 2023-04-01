@@ -5,9 +5,7 @@ require("dotenv").config();
 mongoose.set("strictQuery", false);
 
 mongoose.connect(
-  process.env.NODE_ENV === "production"
-    ? process.env.MONGO_CONNECTION_STRING
-    : "mongodb://localhost/fitnesstracker",
+  "mongodb+srv://gmdt8589:Mg020185awa89..@cluster0.obnac.mongodb.net/fitnesstracker",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
